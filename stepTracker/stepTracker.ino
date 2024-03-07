@@ -26,10 +26,26 @@ void selfTestDisplay(){
   lcd.backlight();
   lcd.setCursor(3,0);  
   lcd.print("Self Test");
+
+  if (menuState == 1 && (digitalRead(actionPin_in) == LOW)){
+    stepCount = 0;
+  }
+}
+
+bool step(){
+  // check if step is taken
+  // return(true);
 }
 
 int CountSteps(){ //count steps 
-  //if accelerometer tick, step += 1
+  if (step()){
+    stepCount += 1;
+  }
+
+  if (menuState == 2 && (digitalRead(actionPin_in) == LOW)){
+    stepCount = 0;
+  }
+  return (stepCount);
 }
 
 void steptrackerDisplay(int steps){
@@ -42,6 +58,7 @@ void steptrackerDisplay(int steps){
 
 int TrackPace(){ //walking pace calculation
   //based on steps over time??
+  //action button cycles types of pace (steps per second? per minute? per hour?)
 }
 
 void walkingpaceDisplay(float pace){
