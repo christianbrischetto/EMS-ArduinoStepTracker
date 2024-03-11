@@ -26,10 +26,6 @@ void selfTestDisplay(){
   lcd.backlight();
   lcd.setCursor(3,0);  
   lcd.print("Self Test");
-
-  if (menuState == 1 && (digitalRead(actionPin_in) == LOW)){
-    stepCount = 0;
-  }
 }
 
 bool step(){
@@ -54,6 +50,10 @@ void steptrackerDisplay(int steps){
   lcd.setCursor(3,0);  
   lcd.print("Steps:  ");
   lcd.print(steps);
+  
+  if (menuState == 2 && (digitalRead(actionPin_in) == LOW)){
+    stepCount = 0;
+  }
 }
 
 int TrackPace(){ //walking pace calculation
