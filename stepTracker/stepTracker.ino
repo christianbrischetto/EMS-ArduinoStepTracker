@@ -22,6 +22,7 @@ double gz;
 double ref_x;
 double ref_y;
 double ref_z;
+double adxlVec;
 
 // _____________________________________________________________________
 //
@@ -83,8 +84,8 @@ void walkingpaceDisplay(float pace){
 }
 
 int CountSteps(){ //count steps 
-  double magnitude = sqrt(gx*gx + gy*gy + gz*gz);
-  if(magnitude > 1.1){
+  adxlVec = sqrt(gx*gx + gy*gy + gz*gz);
+  if(adxlVec > 1.1){
     stepCount++;
     eventCount++;
   }
@@ -181,6 +182,8 @@ void setup() {
   lcd.setCursor(2,0);   //Set cursor to character 2 on line 0
   lcd.print("initializing");
   delay(1000);
+
+  Serial.begin(115200);
 }
 
 void loop() {
@@ -216,6 +219,9 @@ void loop() {
   }
   
   getXYZg(gx,gy,gz);
+
+  // for testing purposes only
+  Serial.println(adxlVec);
 
   //switch states on button press
   switch(menuState){
