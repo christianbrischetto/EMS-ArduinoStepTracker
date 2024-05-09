@@ -23,6 +23,7 @@ double ref_x;
 double ref_y;
 double ref_z;
 double adxlVec;
+bool activeStep;
 
 // _____________________________________________________________________
 //
@@ -85,10 +86,20 @@ void walkingpaceDisplay(float pace){
 
 int CountSteps(){ //count steps 
   adxlVec = sqrt(gx*gx + gy*gy + gz*gz);
-  if(adxlVec > 1.1){
-    stepCount++;
-    eventCount++;
+  if(!activeStep){
+    if(adxlVec > 1.2){
+      stepCount++;
+      eventCount++;
+      activeStep = true;
+    }
   }
+
+  if(activeStep){
+    if(adxlVec < 1){
+      activeStep = false;
+    }
+  }
+
   pace = TrackPace();
 
   return (stepCount);
