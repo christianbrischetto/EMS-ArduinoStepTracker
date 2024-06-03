@@ -127,14 +127,17 @@ int CountSteps(){ //count steps
   return (stepCount);
 }
 
-float TrackPace(){ //walking pace calculation
+float TrackPace() { 
   unsigned long timeCurrent = millis();
-  if((timeCurrent - timeLast) >= 5000){
-    pace = (float)eventCount / ((timeCurrent - timeLast)/5000);
+  unsigned long timeElapsed = timeCurrent - timeLast;
+
+  if (timeElapsed >= 5000) {
+    pace = (float)eventCount * 5000 / timeElapsed;
 
     eventCount = 0;
     timeLast = timeCurrent;
   }
+
   return pace;
 }
 
